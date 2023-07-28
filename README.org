@@ -1,0 +1,433 @@
+#+HTML_HEAD_EXTRA: <style>*{font-size: x-large;}</style>
+#+STARTUP: inlineimages
+
+* 1) Welcome
+
+These are my personal notes on reinforcement learning which is mostly based on the udemy course
+
+https://www.udemy.com/course/artificial-intelligence-reinforcement-learning-in-python/
+
+
+Link to code: https://github.com/lazyprogrammer/machine_learning_examples
+
+** RL Approaches:
+
+ - Dynamic programming (very restrictive and hence more robust)
+ - Monte carlo (lesser restrictive)
+ - TDL includes Q-learning (least restrictive)
+
+#+ATTR_HTML: :width 500 :style border:2px solid black;
+#+ATTR_ORG: :width 500
+[[file:img/1-rl-overview.png]]
+
+* 2) Return of the Multi-Armed Bandit (explore vs exploit)
+
+Major application of bandits is to COMPARE items/elements (online advertising, websites, ...)
+
+The [[https://en.wikipedia.org/wiki/Multi-armed_bandit][multi-armed bandit]] problem models an agent that
+simultaneously attempts to acquire new knowledge (called "exploration") and optimize their decisions based on
+existing knowledge (called "exploitation"). The agent attempts to balance these competing tasks in order to maximize
+their total value over the period of time considered. 
+
+** Epsilon-Greedy
+
+Modifying the 'greedy' strategy (ML/argmax in connection to two bandits). Thus, controlling $p$ lets us **explore**
+(to collect data about each bandit) instead og **exploit**. Epsilon greedy basically ensures
+that we don't get stuck in some 'bad maxmimum likelood estimate'.
+
+#+ATTR_HTML: :width 500 :style border:2px solid black;
+#+ATTR_ORG: :width 500
+[[file:img/2-epsilon-greedy.png]]
+
+SB pseudo code is given as:
+
+#+ATTR_ORG: :width 500
+[[file:img/2-bs-epsilon-greedy-pseudo-alg.png]]
+
+Here $Q(a)$ is the expected reward untill now and $N(a)$ the number of times
+we chose action $a$.
+
+Given two bandits with 90% and 80% winrate respectively, the expected reward is:
+
+#+ATTR_HTML: :width 500 :style border:2px solid black;
+#+ATTR_ORG: :width 500
+[[file:img/2-multi-armed-bandit-reward.png]]
+
+So no matter how small epsilon is, we can never expect to go beyond 90% winrate. To
+remedy this we can use one of the decaying functions:
+
+#+ATTR_HTML: :width 500 :style border:2px solid black;
+#+ATTR_ORG: :width 500
+[[file:img/2-multi-armed-bandit-epsilon-functions.png]]
+
+
+** Optimistic Initial Values
+
+Overestimate the true mean (instead of setting it to zero) in the greedy algorithm.
+Note here, it is not the epsilon-greedy algorithm.
+
+This will cause the algorithm to explore more in the beginning because it will (falsely) believe
+that the bandits have high expected rewards. Setting the initial value (hyperparameter)
+essential controls the ratio of exploration.
+
+
+** UCB1 (Upper Confidence Bound)
+
+There are several inequalities that state something about the sample mean. In UCB1 we
+use Hoefding's inequality (the proof of this inequality is actually a lot of fun!):
+
+#+ATTR_HTML: :width 500 :style border:2px solid black;
+#+ATTR_ORG: :width 500
+[[file:img/2-hoefding.png]]
+
+From this identity the UCB1 update can be derived as
+
+#+ATTR_HTML: :width 500 :style border:2px solid black;
+#+ATTR_ORG: :width 500
+[[file:img/2-ucb1-update.png]]
+
+The "2" is a hyperparameter. Here $n_j$ is the number of times bandit $j$ has been chosen
+and $N$ is the total number of times we played any bandit. And just to be clear, $X_{n_j}$
+is the reward (zero or one) when pulling the $j$'th bandit (hence $\bar X_{n_j}$ is the expected reward)
+which is a number between zero and one (notice, it is not the cummulative expected reward, but the expected
+reward in each pull).
+
+Ignoring bandit $j$ for a long time, means that the square root part will start increasing,
+and therefore we start slowly to explore $j$ again (but only slowly).
+
+
+** Thompson Sampling
+
+https://en.wikipedia.org/wiki/Thompson_sampling#:~:text=Thompson%20sampling%2C%20named%20after%20William,to%20a%20randomly%20drawn%20belief.
+
+Thompson sampling uses Bayesian conjugate priors (beta is conjugate prior for bernoulli) to update the belief
+of the probabilities. This is very well explained in the image below. Notice, that we don't rely on
+any 'collected' data, but we update as information is coming in.
+
+#+ATTR_HTML: :width 500 :style border:2px solid black;
+#+ATTR_ORG: :width 500
+[[file:img/2-beta-posterior.png]]
+
+#+ATTR_HTML: :width 500 :style border:2px solid black;
+#+ATTR_ORG: :width 500
+[[file:img/2-beta-update.png]]
+
+We just need to pick some initial values of $\alpha$ and $\beta$. We can even encode prior knowledge
+into this prior using $\alpha$ and $\beta$. Common choices are $\alpha=1$ and $\beta=1$ which
+leaves us with a uniform distribution on $[0; 1]$
+
+Now instead of using the upper bound in UCB we draw a sample (which is between zero and one)
+from the posterior, which is called Thompson sampling and update (alpha and bete) the posterior distribution. We
+choose to pull the bandit for which we drew the highest number. The optimal bandit will become skinny in the end.
+
+** Thompson Sampling wit Real-Valued (Gaussian) Rewards
+
+Just use the same algorithm, but update according to a Gaussian posterior. Instead of choosing the bandit
+with the largest probability of success, we choose the bandit which yields the greates expected reward.
+
+
+** Non-stationary Rewards
+
+The above examples relied on i.i.d assumption. Instead of updating the mean as before, we can
+update using exponential weighted moving average (EWMA)
+
+#+ATTR_HTML: :width 500 :style border:2px solid black;
+#+ATTR_ORG: :width 500
+[[file:img/2-ewma.png]]
+
+
+"The older the data is, the less it should contribute to the overall mean". The above equation
+can be written as an infinite power series with the term $(1-\alpha)^N$ (the exponential series).
+
+
+* MDPs (model-based approach)
+
+#+ATTR_HTML: :width 500 :style border:2px solid black;
+#+ATTR_ORG: :width 500
+[[file:img/4-highlevel-mdps.png]]
+
+#+ATTR_HTML: :width 500 :style border:2px solid black;
+#+ATTR_ORG: :width 500
+[[file:img/4-mdps.png]]
+
+The MDP is governed by the following probability distribution:
+
+#+ATTR_HTML: :width 800 :style border:2px solid black;
+#+ATTR_ORG: :width 800
+[[file:img/4-mdp-def1.png]]
+
+
+#+ATTR_HTML: :width 800 :style border:2px solid black;
+#+ATTR_ORG: :width 800
+[[file:img/4-mdp-def2.png]]
+
+#+ATTR_HTML: :width 800 :style border:2px solid black;
+#+ATTR_ORG: :width 800
+[[file:img/4-reward-hypothesis.png]]
+
+
+*** Reward function (discounted):
+
+#+ATTR_HTML: :width 800 :style border:2px solid black;
+#+ATTR_ORG: :width 800
+[[file:img/4-discounted-return.png]]
+
+Discounting intuition: The immediate reward is more worth than the reward on a long distant future. It is a hyperparameter that is usually close to one (0.99, 0.98, ...). Without discounting, the cumulative future rewards could be infinite, and how should one choose between policies that both yield inifinte returns.
+
+
+The reward function can be written recursively which is useful for the later theory and algorithms.
+#+ATTR_HTML: :width 800 :style border:2px solid black;
+#+ATTR_ORG: :width 800
+[[file:img/4-reward-recursion.png]]
+
+*** Policy functions
+
+*** State-value function
+
+The reward function is dependend on the policy, since a policy obviously can yield very different returns. And surely
+it is also dependent on the state we are currently in (think of a simple grid world example where we start just
+next to the goal. Then the reward can be high. But starting way back, and accumulating negative ones can give
+much worse accumulated reward). But the reward can in fact change (as just discussed) during the process/game, so
+how can we enven optimize for this seemingly stochastic number -> value functions. We want to maximize the expected
+cumulative reward. The value function is given by
+
+#+ATTR_HTML: :width 800 :style border:2px solid black;
+#+ATTR_ORG: :width 800
+[[file:img/4-value-function.png]]
+
+So the value function describes the expected sum of future rewards given that we are in state $s$ and we follow the policy $\pi$ from here on.
+
+*ALMOST ALL OF THE EFFORT IN RL IS DEVOTED TO SOLVE FOR THE VALUE FUNCTION!!!*
+
+*** Bellman Equation
+
+In order to calculate the value function, we only need to look one step
+ahead which is important! Decreases the statspace to search over drastically
+in each step (insteaf of an entire tree of states). BS furthermore use the
+law of total expectation to write the Bellman equation as. Remember that
+$\pi(a|s) = p(a|s)$ and use total law of expectation to put in $A_t$ in
+order to exploit the definitions above.
+
+#+ATTR_HTML: :width 800 :style border:2px solid black;
+#+ATTR_ORG: :width 800
+[[file:img/4-bellman-equation-bs.jpg]]
+
+
+Assuming all the probabilites are known (they are just numbers), then it should be apparent, that this is just a system of linear equations.
+Assume there are $|S| = k$ states, then we have $k$ equations in $k$ unknowns. This is ofcourse non-feasible to solve in realworld applications, where the statespace is extremely large.
+
+
+*** Action-value function
+
+As opposed to the state-value function, which can be used to test a given policy given a particular state, the action-value function can be used to test how good a particular action is in termes of the expected commulative future rewards given a certain state:
+
+#+ATTR_HTML: :width 800 :style border:2px solid black;
+#+ATTR_ORG: :width 800
+[[file:img/4-action-value-function2.png]]
+
+$V(s)$ is useful for _evaluating_ a policy; given a policy, what is the return we can expect.
+
+$Q(s, a)$ is useful for _control_; I'm in state $s$, what is the best action I can take. That is,
+compare $Q(s, a_1)$ and $Q(s, a_2)$ etc.
+
+Hence we can talk about **Q-table** which are 2-dim arrays with values of Q given a state and an action. For a given state we can then compare $Q(s, a_1)$ and $Q(s, a_2)$.
+
+The relations are given by
+
+#+ATTR_HTML: :width 600 :style border:2px solid black;
+#+ATTR_ORG: :width 600
+[[file:img/4-action-value-function-relation.png]]
+
+
+*** Bellman Examples
+
+It is important to note, that the value at the final step (when we arrive at at target), is zero,
+since the expected future rewards is exactly zero because we are finished. Generally, in toy
+examples we can work 'backwards' and plug-in. Without loops this is easy, but with loops,
+we need to set up a system of linear equations and solve.
+
+Simple examples can be made by constructing simple DAGS with terminal nodes (nodes that have no parents),
+and assigning weight probabilities and rewards on each node. In general, note that the reward
+is dependent on the previous state and the action taken. This implies, that transitioning to a state
+could lead to different rewards based on what the action was to get there!
+
+*** Optimal Policy and Value Function
+
+The policy $\pi$ is _better_ that $\pi'$ if its expected return is greater than that of $\pi'$ for all statesl; $\pi \geq \pi'$ if and only if $v_{\pi}(s) \geq v_{\pi'}(s)$ for all $s$.
+
+The optimal state-value function, policy and action-value function is defined as
+
+#+ATTR_HTML: :width 600 :style border:2px solid black;
+#+ATTR_ORG: :width 600
+[[file:img/4-bellman-optimality-defintion.png]]
+
+*** Theorem: Bellman optimality equation
+
+The optimal value function is unique, but the optimal policy is not! Note the property that V* = max Q* below, which can be seen from the definitions above.
+
+#+ATTR_HTML: :width 600 :style border:2px solid black;
+#+ATTR_ORG: :width 600
+[[file:img/4-bellman-optimality-equations.jpg]]
+
+Finding v* and q* is just a means to and end where we want an optimal policy! The optimal policy can be found as
+
+
+#+ATTR_HTML: :width 600 :style border:2px solid black;
+#+ATTR_ORG: :width 600
+[[file:img/4-optimal-policy.png]] 
+
+But normally we dont know the probability involved; imagine huge statespace and images. So
+also very hard to estimate. But in dynamic programming we use this relation.
+
+For the action value function we have:
+
+#+ATTR_HTML: :width 600 :style border:2px solid black;
+#+ATTR_ORG: :width 600
+[[file:img/4-optimal-policy-action-value.png]]
+
+So we can go about taking max in the a-row in the Q-table. We use this relation
+in monte carlo and temporal difference learning.
+
+For all RL algos we learn, we'll follow the following pattern:
+
+ - (Task 1) *Evaluation/prediction problem* (V) - Evaluate a given policy (i.e, what is the value of V given pi*)
+ - (Task 2) *Control problem* (Q) - Find the best policy
+
+* Dynamic Programming (DP)
+
+** Recap
+
+At each time step, the agent recieves a state $S_t$ and a reward $R_t$, while the environment then recieves an action from the agent $A_t$.
+The objective is to *"program the agent"* in order to maxmize the expected future return.
+
+The policy, $\pi(a\mid s)$ (can be deterministic) sort of governs the agent while the joint pmf $p(s', r \mid s, a)$ governs the environment. And therefore,
+we need to find *"the best pi"*.
+
+
+** Iterative Policy Evaluation
+
+Here we solve *Task 1*. In this section, we simply assume that we know $\pi(a\mid s)$ and $p(s', r \mid s, a)$ so we can apply Bellmans equation directly. It is not reasonable to know $p(s', r \mid s, a)$ but we do it anyway.
+
+#+ATTR_HTML: :width 800 :style border:2px solid black;
+#+ATTR_ORG: :width 800
+[[file:img/4-bellman-equation-bs.jpg]]
+
+Since everything is known, we can simply solve this problem using a system of linear equations. But this is not scalable when the statespace is large.
+
+Also, DP can't handle the situation when $p$ is unkown, but it will lead to methods that can! The iterative policy evaluation algorithm is given below where $v \leftarrow V(s)$ means the "old value" og the value function for that given state. And the max delta is taken over all states. Also, even simple, remember that we must loop over $a, s'$ and $r$!
+
+#+ATTR_HTML: :width 800 :style border:2px solid black;
+#+ATTR_ORG: :width 800
+[[file:img/5-iterative-policy-evaluation.png]]
+
+It should also be noted, that the *reward is deterministic for many practical problems* and therefore we can alleviate to sum over the rewards and we have $p(s', r \mid s, a)$ = $p(s'\mid s, a)$ and $r \equiv r(s')$ (don't need to depend on the action, since the action led us to state $s'$!). So $r(s)$ could simply be a, deterministic, mapping from $S$ to $R$.
+
+
+** Policy Improvement
+
+# http://incompleteideas.net/book/ebook/node42.html
+# https://stats.stackexchange.com/questions/258607/policy-improvement-theorem
+# https://stats.stackexchange.com/questions/248131/epsilon-greedy-policy-improvement
+# https://stat.ethz.ch/education/semesters/ss2016/seminar/files/slides/seminar_week6_DynamicProgramming.pdf
+
+Now, given a (deterministic) policy, how can we improve it iteratively. Suppose that vi know the value function $v_\pi$ from policy iteration.
+For a given state $s$ we want to know whether it makes sense to, deterministically, change $\pi(s)$ to an action $a$. We already know
+how good it is to follow $\pi$ from state $s$ which is just $v_\pi(s)$ and therefore we can compare it. So what is the value
+if we instead take action $a$ when in state $s$, and thereafter follow $\pi$.
+
+So assume we are given
+
+ - some $\pi(s)$
+ - we have found $V_{\pi}(s)$ and $Q_{\pi}(s,a)$
+ - we take an action, $a$, NOT prescribed by the policy for state $a\neq s$
+ - but hereafter we follow $\pi(s)$ again
+
+This is EXACTLY what $Q_{\pi}(s,a)$ is. Hence, if
+$$
+Q_{\pi}(s,a) > V_{\pi}(s)
+$$
+then, the return for that particular *episode* is better than if we had just followd $\pi$ the whole time.
+
+Pictorally this can be show as:
+
+#+ATTR_HTML: :width 800 :style border:2px solid black;
+#+ATTR_ORG: :width 800
+[[file:img/4-policy-sequence.png]]
+
+So, for each state, the best action is found by:
+
+#+ATTR_HTML: :width 600 :style border:2px solid black;
+#+ATTR_ORG: :width 600
+[[file:img/4-optimal-policy-action-value.png]]
+
+So what if we change the action $\pi(s)$ to $a^{\ast} = \pi'(s)$ and make a new policy $\pi$?
+
+*POLICY IMPOROVEMENT THEOREM*:
+
+#+ATTR_ORG: :width 600
+[[file:img/5-policy-improvement-thm.png]]
+
+This theorem extends to stochastic polies using the natural definition
+
+#+ATTR_HTML: :width 600 :style border:2px solid black;
+#+ATTR_ORG: :width 600
+[[file:img/5-policy-improvement-thm-stochastic.png]]
+
+
+#+ATTR_HTML: :width 600 :style border:2px solid black;
+#+ATTR_ORG: :width 600
+[[file:img/5-policy-improvement-thm-equality.png]]
+
+The above gives us a criterion for when to stop the policy iteration algorithm (introduced below). When the policy no longer improves,
+we say that it is *stable*. Also, it says that we should take the argmax in each state (the Bellman optimality equation), i.e.
+
+#+ATTR_HTML: :width 600 :style border:2px solid black;
+#+ATTR_ORG: :width 600
+[[file:img/4-optimal-policy.png]] 
+
+#+ATTR_HTML: :width 600 :style border:2px solid black;
+#+ATTR_ORG: :width 600
+[[file:img/5-policy-improvement-thm-proof.png]]
+
+
+** Policy Iteration
+
+The policy iteration algorithm is composed of the policy evaluation together with the policy improvement algorithms so sequentially update the policy.
+
+#+ATTR_HTML: :width 600 :style border:2px solid black;
+#+ATTR_ORG: :width 600
+[[file:img/5-policy-iteration-illustration.png]]
+
+
+The policy iteration pseudo algorithm from Barto and Sutton is given as below. HOWEVER, note the lack of the sum over policies in step 2. which is an error! Note also, that the value function can be initialized with zeroes (or random except for the terminal states which has to be zero).
+#+ATTR_HTML: :width 800 :style border:2px solid black;
+#+ATTR_ORG: :width 800
+[[file:img/5-policy-iteration-pseudo-alg.png]]
+
+Note that policy iteration yields a *deterministic* policy since we take argmaxes in each step! Since optimal policies are not unique, we could end up getting stuck in the loop. This is not an issue in *value iteration* where we just compute a SINGLE optimal policy (and dont care about all the other optimal policies).
+
+** Value Iteration
+
+Since the optimal policy can be derived from the Bellman optimality equation
+#+ATTR_HTML: :width 600 :style border:2px solid black;
+#+ATTR_ORG: :width 600
+[[file:img/4-optimal-policy.png]] 
+
+(i.e, from an optimal value function) we can avoid some unncessary loops compared to policy iteration.
+
+
+#+ATTR_HTML: :width 800 :style border:2px solid black;
+#+ATTR_ORG: :width 800
+[[file:img/5-value-iteration-pseudo-alg.png]]
+
+
+** Comparison of Policy Iteration and Value Iteration
+
+#+ATTR_HTML: :width 800 :style border:2px solid black;
+#+ATTR_ORG: :width 800
+[[file:img/5-compare-algs.png]]
+
+
+* Monte Carlo (model-free approach)
+
+In this section, the transition probabilities are unknown, at the agent must learn to navigate the environment to learn these.

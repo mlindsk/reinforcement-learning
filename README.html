@@ -1,0 +1,1011 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2023-07-28 Fri 13:05 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>&lrm;</title>
+<meta name="author" content="Mads Lindskou" />
+<meta name="generator" content="Org Mode" />
+<style>
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<style>*{font-size: x-large;}</style>
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+</head>
+<body>
+<div id="content" class="content">
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org8cff395">1. 1) Welcome</a>
+<ul>
+<li><a href="#orga7dd530">1.1. RL Approaches:</a></li>
+</ul>
+</li>
+<li><a href="#org886b1c0">2. 2) Return of the Multi-Armed Bandit (explore vs exploit)</a>
+<ul>
+<li><a href="#orgc13375d">2.1. Epsilon-Greedy</a></li>
+<li><a href="#org341d213">2.2. Optimistic Initial Values</a></li>
+<li><a href="#org18e913c">2.3. UCB1 (Upper Confidence Bound)</a></li>
+<li><a href="#org05f04bc">2.4. Thompson Sampling</a></li>
+<li><a href="#orgde86a27">2.5. Thompson Sampling wit Real-Valued (Gaussian) Rewards</a></li>
+<li><a href="#orgee32f95">2.6. Non-stationary Rewards</a></li>
+</ul>
+</li>
+<li><a href="#orga41918d">3. MDPs (model-based approach)</a>
+<ul>
+<li>
+<ul>
+<li><a href="#org7ba5ea8">3.0.1. Reward function (discounted):</a></li>
+<li><a href="#orgf40684d">3.0.2. Policy functions</a></li>
+<li><a href="#orga98da16">3.0.3. State-value function</a></li>
+<li><a href="#orgb280f20">3.0.4. Bellman Equation</a></li>
+<li><a href="#org412205e">3.0.5. Action-value function</a></li>
+<li><a href="#orgf4aad23">3.0.6. Bellman Examples</a></li>
+<li><a href="#org932a38e">3.0.7. Optimal Policy and Value Function</a></li>
+<li><a href="#org2f654b7">3.0.8. Theorem: Bellman optimality equation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgfe6d8c6">4. Dynamic Programming (DP)</a>
+<ul>
+<li><a href="#org26f50b5">4.1. Recap</a></li>
+<li><a href="#orgb504e4f">4.2. Iterative Policy Evaluation</a></li>
+<li><a href="#org94659a3">4.3. Policy Improvement</a></li>
+<li><a href="#org2bbce42">4.4. Policy Iteration</a></li>
+<li><a href="#orgcc11797">4.5. Value Iteration</a></li>
+<li><a href="#org5376558">4.6. Comparison of Policy Iteration and Value Iteration</a></li>
+</ul>
+</li>
+<li><a href="#orgbacbbb5">5. Monte Carlo (model-free approach)</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org8cff395" class="outline-2">
+<h2 id="org8cff395"><span class="section-number-2">1.</span> 1) Welcome</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+These are my personal notes on reinforcement learning which is mostly based on the udemy course
+</p>
+
+<p>
+<a href="https://www.udemy.com/course/artificial-intelligence-reinforcement-learning-in-python/">https://www.udemy.com/course/artificial-intelligence-reinforcement-learning-in-python/</a>
+</p>
+
+
+<p>
+Link to code: <a href="https://github.com/lazyprogrammer/machine_learning_examples">https://github.com/lazyprogrammer/machine_learning_examples</a>
+</p>
+</div>
+
+<div id="outline-container-orga7dd530" class="outline-3">
+<h3 id="orga7dd530"><span class="section-number-3">1.1.</span> RL Approaches:</h3>
+<div class="outline-text-3" id="text-1-1">
+<ul class="org-ul">
+<li>Dynamic programming (very restrictive and hence more robust)</li>
+<li>Monte carlo (lesser restrictive)</li>
+<li>TDL includes Q-learning (least restrictive)</li>
+</ul>
+
+
+<div id="org074ce48" class="figure">
+<p><img src="img/1-rl-overview.png" alt="1-rl-overview.png" width="500" style="border:2px solid black;" />
+</p>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org886b1c0" class="outline-2">
+<h2 id="org886b1c0"><span class="section-number-2">2.</span> 2) Return of the Multi-Armed Bandit (explore vs exploit)</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+Major application of bandits is to COMPARE items/elements (online advertising, websites, &#x2026;)
+</p>
+
+<p>
+The <a href="https://en.wikipedia.org/wiki/Multi-armed_bandit">multi-armed bandit</a> problem models an agent that
+simultaneously attempts to acquire new knowledge (called "exploration") and optimize their decisions based on
+existing knowledge (called "exploitation"). The agent attempts to balance these competing tasks in order to maximize
+their total value over the period of time considered. 
+</p>
+</div>
+
+<div id="outline-container-orgc13375d" class="outline-3">
+<h3 id="orgc13375d"><span class="section-number-3">2.1.</span> Epsilon-Greedy</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+Modifying the 'greedy' strategy (ML/argmax in connection to two bandits). Thus, controlling \(p\) lets us <b><b>explore</b></b>
+(to collect data about each bandit) instead og <b><b>exploit</b></b>. Epsilon greedy basically ensures
+that we don't get stuck in some 'bad maxmimum likelood estimate'.
+</p>
+
+
+<div id="org7cc4c96" class="figure">
+<p><img src="img/2-epsilon-greedy.png" alt="2-epsilon-greedy.png" width="500" style="border:2px solid black;" />
+</p>
+</div>
+
+<p>
+SB pseudo code is given as:
+</p>
+
+
+<div id="org1c9e36c" class="figure">
+<p><img src="img/2-bs-epsilon-greedy-pseudo-alg.png" alt="2-bs-epsilon-greedy-pseudo-alg.png" />
+</p>
+</div>
+
+<p>
+Here \(Q(a)\) is the expected reward untill now and \(N(a)\) the number of times
+we chose action \(a\).
+</p>
+
+<p>
+Given two bandits with 90% and 80% winrate respectively, the expected reward is:
+</p>
+
+
+<div id="org1c786fc" class="figure">
+<p><img src="img/2-multi-armed-bandit-reward.png" alt="2-multi-armed-bandit-reward.png" width="500" style="border:2px solid black;" />
+</p>
+</div>
+
+<p>
+So no matter how small epsilon is, we can never expect to go beyond 90% winrate. To
+remedy this we can use one of the decaying functions:
+</p>
+
+
+<div id="org9ba03be" class="figure">
+<p><img src="img/2-multi-armed-bandit-epsilon-functions.png" alt="2-multi-armed-bandit-epsilon-functions.png" width="500" style="border:2px solid black;" />
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org341d213" class="outline-3">
+<h3 id="org341d213"><span class="section-number-3">2.2.</span> Optimistic Initial Values</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+Overestimate the true mean (instead of setting it to zero) in the greedy algorithm.
+Note here, it is not the epsilon-greedy algorithm.
+</p>
+
+<p>
+This will cause the algorithm to explore more in the beginning because it will (falsely) believe
+that the bandits have high expected rewards. Setting the initial value (hyperparameter)
+essential controls the ratio of exploration.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org18e913c" class="outline-3">
+<h3 id="org18e913c"><span class="section-number-3">2.3.</span> UCB1 (Upper Confidence Bound)</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+There are several inequalities that state something about the sample mean. In UCB1 we
+use Hoefding's inequality (the proof of this inequality is actually a lot of fun!):
+</p>
+
+
+<div id="org0ac3e76" class="figure">
+<p><img src="img/2-hoefding.png" alt="2-hoefding.png" width="500" style="border:2px solid black;" />
+</p>
+</div>
+
+<p>
+From this identity the UCB1 update can be derived as
+</p>
+
+
+<div id="orga3a66fa" class="figure">
+<p><img src="img/2-ucb1-update.png" alt="2-ucb1-update.png" width="500" style="border:2px solid black;" />
+</p>
+</div>
+
+<p>
+The "2" is a hyperparameter. Here \(n_j\) is the number of times bandit \(j\) has been chosen
+and \(N\) is the total number of times we played any bandit. And just to be clear, \(X_{n_j}\)
+is the reward (zero or one) when pulling the \(j\)'th bandit (hence \(\bar X_{n_j}\) is the expected reward)
+which is a number between zero and one (notice, it is not the cummulative expected reward, but the expected
+reward in each pull).
+</p>
+
+<p>
+Ignoring bandit \(j\) for a long time, means that the square root part will start increasing,
+and therefore we start slowly to explore \(j\) again (but only slowly).
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org05f04bc" class="outline-3">
+<h3 id="org05f04bc"><span class="section-number-3">2.4.</span> Thompson Sampling</h3>
+<div class="outline-text-3" id="text-2-4">
+<p>
+<a href="https://en.wikipedia.org/wiki/Thompson_sampling#:~:text=Thompson%20sampling%2C%20named%20after%20William,to%20a%20randomly%20drawn%20belief">https://en.wikipedia.org/wiki/Thompson_sampling#:~:text=Thompson%20sampling%2C%20named%20after%20William,to%20a%20randomly%20drawn%20belief</a>.
+</p>
+
+<p>
+Thompson sampling uses Bayesian conjugate priors (beta is conjugate prior for bernoulli) to update the belief
+of the probabilities. This is very well explained in the image below. Notice, that we don't rely on
+any 'collected' data, but we update as information is coming in.
+</p>
+
+
+<div id="org52adac7" class="figure">
+<p><img src="img/2-beta-posterior.png" alt="2-beta-posterior.png" width="500" style="border:2px solid black;" />
+</p>
+</div>
+
+
+<div id="org4437638" class="figure">
+<p><img src="img/2-beta-update.png" alt="2-beta-update.png" width="500" style="border:2px solid black;" />
+</p>
+</div>
+
+<p>
+We just need to pick some initial values of \(\alpha\) and \(\beta\). We can even encode prior knowledge
+into this prior using \(\alpha\) and \(\beta\). Common choices are \(\alpha=1\) and \(\beta=1\) which
+leaves us with a uniform distribution on \([0; 1]\)
+</p>
+
+<p>
+Now instead of using the upper bound in UCB we draw a sample (which is between zero and one)
+from the posterior, which is called Thompson sampling and update (alpha and bete) the posterior distribution. We
+choose to pull the bandit for which we drew the highest number. The optimal bandit will become skinny in the end.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgde86a27" class="outline-3">
+<h3 id="orgde86a27"><span class="section-number-3">2.5.</span> Thompson Sampling wit Real-Valued (Gaussian) Rewards</h3>
+<div class="outline-text-3" id="text-2-5">
+<p>
+Just use the same algorithm, but update according to a Gaussian posterior. Instead of choosing the bandit
+with the largest probability of success, we choose the bandit which yields the greates expected reward.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-orgee32f95" class="outline-3">
+<h3 id="orgee32f95"><span class="section-number-3">2.6.</span> Non-stationary Rewards</h3>
+<div class="outline-text-3" id="text-2-6">
+<p>
+The above examples relied on i.i.d assumption. Instead of updating the mean as before, we can
+update using exponential weighted moving average (EWMA)
+</p>
+
+
+<div id="orgfebece8" class="figure">
+<p><img src="img/2-ewma.png" alt="2-ewma.png" width="500" style="border:2px solid black;" />
+</p>
+</div>
+
+
+<p>
+"The older the data is, the less it should contribute to the overall mean". The above equation
+can be written as an infinite power series with the term \((1-\alpha)^N\) (the exponential series).
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orga41918d" class="outline-2">
+<h2 id="orga41918d"><span class="section-number-2">3.</span> MDPs (model-based approach)</h2>
+<div class="outline-text-2" id="text-3">
+
+<div id="org6b190b0" class="figure">
+<p><img src="img/4-highlevel-mdps.png" alt="4-highlevel-mdps.png" width="500" style="border:2px solid black;" />
+</p>
+</div>
+
+
+<div id="org279c7b7" class="figure">
+<p><img src="img/4-mdps.png" alt="4-mdps.png" width="500" style="border:2px solid black;" />
+</p>
+</div>
+
+<p>
+The MDP is governed by the following probability distribution:
+</p>
+
+
+<div id="orga676b23" class="figure">
+<p><img src="img/4-mdp-def1.png" alt="4-mdp-def1.png" width="800" style="border:2px solid black;" />
+</p>
+</div>
+
+
+
+<div id="org7e551f9" class="figure">
+<p><img src="img/4-mdp-def2.png" alt="4-mdp-def2.png" width="800" style="border:2px solid black;" />
+</p>
+</div>
+
+
+<div id="orgbdf1601" class="figure">
+<p><img src="img/4-reward-hypothesis.png" alt="4-reward-hypothesis.png" width="800" style="border:2px solid black;" />
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org7ba5ea8" class="outline-4">
+<h4 id="org7ba5ea8"><span class="section-number-4">3.0.1.</span> Reward function (discounted):</h4>
+<div class="outline-text-4" id="text-3-0-1">
+
+<div id="org0da4093" class="figure">
+<p><img src="img/4-discounted-return.png" alt="4-discounted-return.png" width="800" style="border:2px solid black;" />
+</p>
+</div>
+
+<p>
+Discounting intuition: The immediate reward is more worth than the reward on a long distant future. It is a hyperparameter that is usually close to one (0.99, 0.98, &#x2026;). Without discounting, the cumulative future rewards could be infinite, and how should one choose between policies that both yield inifinte returns.
+</p>
+
+
+<p>
+The reward function can be written recursively which is useful for the later theory and algorithms.
+</p>
+
+<div id="org01c9d6c" class="figure">
+<p><img src="img/4-reward-recursion.png" alt="4-reward-recursion.png" width="800" style="border:2px solid black;" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgf40684d" class="outline-4">
+<h4 id="orgf40684d"><span class="section-number-4">3.0.2.</span> Policy functions</h4>
+</div>
+
+<div id="outline-container-orga98da16" class="outline-4">
+<h4 id="orga98da16"><span class="section-number-4">3.0.3.</span> State-value function</h4>
+<div class="outline-text-4" id="text-3-0-3">
+<p>
+The reward function is dependend on the policy, since a policy obviously can yield very different returns. And surely
+it is also dependent on the state we are currently in (think of a simple grid world example where we start just
+next to the goal. Then the reward can be high. But starting way back, and accumulating negative ones can give
+much worse accumulated reward). But the reward can in fact change (as just discussed) during the process/game, so
+how can we enven optimize for this seemingly stochastic number -&gt; value functions. We want to maximize the expected
+cumulative reward. The value function is given by
+</p>
+
+
+<div id="orgb9fd633" class="figure">
+<p><img src="img/4-value-function.png" alt="4-value-function.png" width="800" style="border:2px solid black;" />
+</p>
+</div>
+
+<p>
+So the value function describes the expected sum of future rewards given that we are in state \(s\) and we follow the policy \(\pi\) from here on.
+</p>
+
+<p>
+<b>ALMOST ALL OF THE EFFORT IN RL IS DEVOTED TO SOLVE FOR THE VALUE FUNCTION!!!</b>
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgb280f20" class="outline-4">
+<h4 id="orgb280f20"><span class="section-number-4">3.0.4.</span> Bellman Equation</h4>
+<div class="outline-text-4" id="text-3-0-4">
+<p>
+In order to calculate the value function, we only need to look one step
+ahead which is important! Decreases the statspace to search over drastically
+in each step (insteaf of an entire tree of states). BS furthermore use the
+law of total expectation to write the Bellman equation as. Remember that
+\(\pi(a|s) = p(a|s)\) and use total law of expectation to put in \(A_t\) in
+order to exploit the definitions above.
+</p>
+
+
+<div id="org189924a" class="figure">
+<p><img src="img/4-bellman-equation-bs.jpg" alt="4-bellman-equation-bs.jpg" width="800" style="border:2px solid black;" />
+</p>
+</div>
+
+
+<p>
+Assuming all the probabilites are known (they are just numbers), then it should be apparent, that this is just a system of linear equations.
+Assume there are \(|S| = k\) states, then we have \(k\) equations in \(k\) unknowns. This is ofcourse non-feasible to solve in realworld applications, where the statespace is extremely large.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org412205e" class="outline-4">
+<h4 id="org412205e"><span class="section-number-4">3.0.5.</span> Action-value function</h4>
+<div class="outline-text-4" id="text-3-0-5">
+<p>
+As opposed to the state-value function, which can be used to test a given policy given a particular state, the action-value function can be used to test how good a particular action is in termes of the expected commulative future rewards given a certain state:
+</p>
+
+
+<div id="orgc05d9ce" class="figure">
+<p><img src="img/4-action-value-function2.png" alt="4-action-value-function2.png" width="800" style="border:2px solid black;" />
+</p>
+</div>
+
+<p>
+\(V(s)\) is useful for <span class="underline">evaluating</span> a policy; given a policy, what is the return we can expect.
+</p>
+
+<p>
+\(Q(s, a)\) is useful for <span class="underline">control</span>; I'm in state \(s\), what is the best action I can take. That is,
+compare \(Q(s, a_1)\) and \(Q(s, a_2)\) etc.
+</p>
+
+<p>
+Hence we can talk about <b><b>Q-table</b></b> which are 2-dim arrays with values of Q given a state and an action. For a given state we can then compare \(Q(s, a_1)\) and \(Q(s, a_2)\).
+</p>
+
+<p>
+The relations are given by
+</p>
+
+
+<div id="orgb65d5ef" class="figure">
+<p><img src="img/4-action-value-function-relation.png" alt="4-action-value-function-relation.png" width="600" style="border:2px solid black;" />
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgf4aad23" class="outline-4">
+<h4 id="orgf4aad23"><span class="section-number-4">3.0.6.</span> Bellman Examples</h4>
+<div class="outline-text-4" id="text-3-0-6">
+<p>
+It is important to note, that the value at the final step (when we arrive at at target), is zero,
+since the expected future rewards is exactly zero because we are finished. Generally, in toy
+examples we can work 'backwards' and plug-in. Without loops this is easy, but with loops,
+we need to set up a system of linear equations and solve.
+</p>
+
+<p>
+Simple examples can be made by constructing simple DAGS with terminal nodes (nodes that have no parents),
+and assigning weight probabilities and rewards on each node. In general, note that the reward
+is dependent on the previous state and the action taken. This implies, that transitioning to a state
+could lead to different rewards based on what the action was to get there!
+</p>
+</div>
+</div>
+
+<div id="outline-container-org932a38e" class="outline-4">
+<h4 id="org932a38e"><span class="section-number-4">3.0.7.</span> Optimal Policy and Value Function</h4>
+<div class="outline-text-4" id="text-3-0-7">
+<p>
+The policy \(\pi\) is <span class="underline">better</span> that \(\pi'\) if its expected return is greater than that of \(\pi'\) for all statesl; \(\pi \geq \pi'\) if and only if \(v_{\pi}(s) \geq v_{\pi'}(s)\) for all \(s\).
+</p>
+
+<p>
+The optimal state-value function, policy and action-value function is defined as
+</p>
+
+
+<div id="orgfdd2f78" class="figure">
+<p><img src="img/4-bellman-optimality-defintion.png" alt="4-bellman-optimality-defintion.png" width="600" style="border:2px solid black;" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org2f654b7" class="outline-4">
+<h4 id="org2f654b7"><span class="section-number-4">3.0.8.</span> Theorem: Bellman optimality equation</h4>
+<div class="outline-text-4" id="text-3-0-8">
+<p>
+The optimal value function is unique, but the optimal policy is not! Note the property that V* = max Q* below, which can be seen from the definitions above.
+</p>
+
+
+<div id="orgd77b865" class="figure">
+<p><img src="img/4-bellman-optimality-equations.jpg" alt="4-bellman-optimality-equations.jpg" width="600" style="border:2px solid black;" />
+</p>
+</div>
+
+<p>
+Finding v* and q* is just a means to and end where we want an optimal policy! The optimal policy can be found as
+</p>
+
+
+
+<div id="orgb4d694f" class="figure">
+<p><img src="img/4-optimal-policy.png" alt="4-optimal-policy.png" width="600" style="border:2px solid black;" /> 
+</p>
+</div>
+
+<p>
+But normally we dont know the probability involved; imagine huge statespace and images. So
+also very hard to estimate. But in dynamic programming we use this relation.
+</p>
+
+<p>
+For the action value function we have:
+</p>
+
+
+<div id="org625a6ef" class="figure">
+<p><img src="img/4-optimal-policy-action-value.png" alt="4-optimal-policy-action-value.png" width="600" style="border:2px solid black;" />
+</p>
+</div>
+
+<p>
+So we can go about taking max in the a-row in the Q-table. We use this relation
+in monte carlo and temporal difference learning.
+</p>
+
+<p>
+For all RL algos we learn, we'll follow the following pattern:
+</p>
+
+<ul class="org-ul">
+<li>(Task 1) <b>Evaluation/prediction problem</b> (V) - Evaluate a given policy (i.e, what is the value of V given pi*)</li>
+<li>(Task 2) <b>Control problem</b> (Q) - Find the best policy</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgfe6d8c6" class="outline-2">
+<h2 id="orgfe6d8c6"><span class="section-number-2">4.</span> Dynamic Programming (DP)</h2>
+<div class="outline-text-2" id="text-4">
+</div>
+<div id="outline-container-org26f50b5" class="outline-3">
+<h3 id="org26f50b5"><span class="section-number-3">4.1.</span> Recap</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+At each time step, the agent recieves a state \(S_t\) and a reward \(R_t\), while the environment then recieves an action from the agent \(A_t\).
+The objective is to <b>"program the agent"</b> in order to maxmize the expected future return.
+</p>
+
+<p>
+The policy, \(\pi(a\mid s)\) (can be deterministic) sort of governs the agent while the joint pmf \(p(s', r \mid s, a)\) governs the environment. And therefore,
+we need to find <b>"the best pi"</b>.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-orgb504e4f" class="outline-3">
+<h3 id="orgb504e4f"><span class="section-number-3">4.2.</span> Iterative Policy Evaluation</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+Here we solve <b>Task 1</b>. In this section, we simply assume that we know \(\pi(a\mid s)\) and \(p(s', r \mid s, a)\) so we can apply Bellmans equation directly. It is not reasonable to know \(p(s', r \mid s, a)\) but we do it anyway.
+</p>
+
+
+<div id="org8f255d2" class="figure">
+<p><img src="img/4-bellman-equation-bs.jpg" alt="4-bellman-equation-bs.jpg" width="800" style="border:2px solid black;" />
+</p>
+</div>
+
+<p>
+Since everything is known, we can simply solve this problem using a system of linear equations. But this is not scalable when the statespace is large.
+</p>
+
+<p>
+Also, DP can't handle the situation when \(p\) is unkown, but it will lead to methods that can! The iterative policy evaluation algorithm is given below where \(v \leftarrow V(s)\) means the "old value" og the value function for that given state. And the max delta is taken over all states. Also, even simple, remember that we must loop over \(a, s'\) and \(r\)!
+</p>
+
+
+<div id="org7a01a5a" class="figure">
+<p><img src="img/5-iterative-policy-evaluation.png" alt="5-iterative-policy-evaluation.png" width="800" style="border:2px solid black;" />
+</p>
+</div>
+
+<p>
+It should also be noted, that the <b>reward is deterministic for many practical problems</b> and therefore we can alleviate to sum over the rewards and we have \(p(s', r \mid s, a)\) = \(p(s'\mid s, a)\) and \(r \equiv r(s')\) (don't need to depend on the action, since the action led us to state \(s'\)!). So \(r(s)\) could simply be a, deterministic, mapping from \(S\) to \(R\).
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org94659a3" class="outline-3">
+<h3 id="org94659a3"><span class="section-number-3">4.3.</span> Policy Improvement</h3>
+<div class="outline-text-3" id="text-4-3">
+<p>
+Now, given a (deterministic) policy, how can we improve it iteratively. Suppose that vi know the value function \(v_\pi\) from policy iteration.
+For a given state \(s\) we want to know whether it makes sense to, deterministically, change \(\pi(s)\) to an action \(a\). We already know
+how good it is to follow \(\pi\) from state \(s\) which is just \(v_\pi(s)\) and therefore we can compare it. So what is the value
+if we instead take action \(a\) when in state \(s\), and thereafter follow \(\pi\).
+</p>
+
+<p>
+So assume we are given
+</p>
+
+<ul class="org-ul">
+<li>some \(\pi(s)\)</li>
+<li>we have found \(V_{\pi}(s)\) and \(Q_{\pi}(s,a)\)</li>
+<li>we take an action, \(a\), NOT prescribed by the policy for state \(a\neq s\)</li>
+<li>but hereafter we follow \(\pi(s)\) again</li>
+</ul>
+
+<p>
+This is EXACTLY what \(Q_{\pi}(s,a)\) is. Hence, if
+\[
+Q_{\pi}(s,a) > V_{\pi}(s)
+\]
+then, the return for that particular <b>episode</b> is better than if we had just followd \(\pi\) the whole time.
+</p>
+
+<p>
+Pictorally this can be show as:
+</p>
+
+
+<div id="org23c6ea9" class="figure">
+<p><img src="img/4-policy-sequence.png" alt="4-policy-sequence.png" width="800" style="border:2px solid black;" />
+</p>
+</div>
+
+<p>
+So, for each state, the best action is found by:
+</p>
+
+
+<div id="org2910bf6" class="figure">
+<p><img src="img/4-optimal-policy-action-value.png" alt="4-optimal-policy-action-value.png" width="600" style="border:2px solid black;" />
+</p>
+</div>
+
+<p>
+So what if we change the action \(\pi(s)\) to \(a^{\ast} = \pi'(s)\) and make a new policy \(\pi\)?
+</p>
+
+<p>
+<b>POLICY IMPOROVEMENT THEOREM</b>:
+</p>
+
+
+<div id="orgfefb58b" class="figure">
+<p><img src="img/5-policy-improvement-thm.png" alt="5-policy-improvement-thm.png" />
+</p>
+</div>
+
+<p>
+This theorem extends to stochastic polies using the natural definition
+</p>
+
+
+<div id="orgdf28e2e" class="figure">
+<p><img src="img/5-policy-improvement-thm-stochastic.png" alt="5-policy-improvement-thm-stochastic.png" width="600" style="border:2px solid black;" />
+</p>
+</div>
+
+
+
+<div id="orgd4c047f" class="figure">
+<p><img src="img/5-policy-improvement-thm-equality.png" alt="5-policy-improvement-thm-equality.png" width="600" style="border:2px solid black;" />
+</p>
+</div>
+
+<p>
+The above gives us a criterion for when to stop the policy iteration algorithm (introduced below). When the policy no longer improves,
+we say that it is <b>stable</b>. Also, it says that we should take the argmax in each state (the Bellman optimality equation), i.e.
+</p>
+
+
+<div id="orga085998" class="figure">
+<p><img src="img/4-optimal-policy.png" alt="4-optimal-policy.png" width="600" style="border:2px solid black;" /> 
+</p>
+</div>
+
+
+<div id="org9e12144" class="figure">
+<p><img src="img/5-policy-improvement-thm-proof.png" alt="5-policy-improvement-thm-proof.png" width="600" style="border:2px solid black;" />
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org2bbce42" class="outline-3">
+<h3 id="org2bbce42"><span class="section-number-3">4.4.</span> Policy Iteration</h3>
+<div class="outline-text-3" id="text-4-4">
+<p>
+The policy iteration algorithm is composed of the policy evaluation together with the policy improvement algorithms so sequentially update the policy.
+</p>
+
+
+<div id="org59d4bc7" class="figure">
+<p><img src="img/5-policy-iteration-illustration.png" alt="5-policy-iteration-illustration.png" width="600" style="border:2px solid black;" />
+</p>
+</div>
+
+
+<p>
+The policy iteration pseudo algorithm from Barto and Sutton is given as below. HOWEVER, note the lack of the sum over policies in step 2. which is an error! Note also, that the value function can be initialized with zeroes (or random except for the terminal states which has to be zero).
+</p>
+
+<div id="org4916eb6" class="figure">
+<p><img src="img/5-policy-iteration-pseudo-alg.png" alt="5-policy-iteration-pseudo-alg.png" width="800" style="border:2px solid black;" />
+</p>
+</div>
+
+<p>
+Note that policy iteration yields a <b>deterministic</b> policy since we take argmaxes in each step! Since optimal policies are not unique, we could end up getting stuck in the loop. This is not an issue in <b>value iteration</b> where we just compute a SINGLE optimal policy (and dont care about all the other optimal policies).
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgcc11797" class="outline-3">
+<h3 id="orgcc11797"><span class="section-number-3">4.5.</span> Value Iteration</h3>
+<div class="outline-text-3" id="text-4-5">
+<p>
+Since the optimal policy can be derived from the Bellman optimality equation
+</p>
+
+<div id="orgee28af7" class="figure">
+<p><img src="img/4-optimal-policy.png" alt="4-optimal-policy.png" width="600" style="border:2px solid black;" /> 
+</p>
+</div>
+
+<p>
+(i.e, from an optimal value function) we can avoid some unncessary loops compared to policy iteration.
+</p>
+
+
+
+<div id="org7998a9c" class="figure">
+<p><img src="img/5-value-iteration-pseudo-alg.png" alt="5-value-iteration-pseudo-alg.png" width="800" style="border:2px solid black;" />
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org5376558" class="outline-3">
+<h3 id="org5376558"><span class="section-number-3">4.6.</span> Comparison of Policy Iteration and Value Iteration</h3>
+<div class="outline-text-3" id="text-4-6">
+
+<div id="org00bf504" class="figure">
+<p><img src="img/5-compare-algs.png" alt="5-compare-algs.png" width="800" style="border:2px solid black;" />
+</p>
+</div>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgbacbbb5" class="outline-2">
+<h2 id="orgbacbbb5"><span class="section-number-2">5.</span> Monte Carlo (model-free approach)</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+In this section, the transition probabilities are unknown, at the agent must learn to navigate the environment to learn these.
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Mads Lindskou</p>
+<p class="date">Created: 2023-07-28 Fri 13:05</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
