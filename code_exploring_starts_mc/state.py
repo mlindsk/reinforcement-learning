@@ -58,7 +58,7 @@ class State:
         return ns
 
         
-non_terminal_reward = -0.4
+non_terminal_reward = 0
 s00 = State(0, 0, action_space = ['R', 'D'], reward = non_terminal_reward)
 s01 = State(0, 1, action_space = ['R', 'L'], reward = non_terminal_reward)
 s02 = State(0, 2, action_space = ['R', 'D', 'L'], reward = non_terminal_reward)
@@ -79,6 +79,19 @@ states = [
 
 state_space_mapping = {str(s.i) + str(s.j) : s for s in states}
 
+policy = {
+    s00 : "R",
+    s01 : "R",
+    s02 : "R",
+    s03 : None,
+    s10 : "U",
+    s12 : "R",
+    s13 : None,
+    s20 : "U",
+    s21 : "R",
+    s22 : "R",
+    s23 : "U"    
+}
 if __name__ == '__main__':
 
 

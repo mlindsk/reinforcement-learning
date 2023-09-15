@@ -18,7 +18,6 @@ class Env:
         self.V = {s : 0 for s in self.state_space}
         self.policy = dict()
 
-
     def get_transition_prob(self, s1, s2, a):
         t = self.transition_probs.get((s1, a), None)
         return t.get(s2, 0) if t else 0

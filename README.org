@@ -1,6 +1,11 @@
 #+HTML_HEAD_EXTRA: <style>*{font-size: x-large;}</style>
 #+STARTUP: inlineimages
 
+* Current Extra Material 
+
+- https://www.youtube.com/watch?v=0Kw-VTym9Pg
+- https://towardsdatascience.com/on-policy-v-s-off-policy-learning-75089916bc2f
+
 * 1) Welcome
 
 These are my personal notes on reinforcement learning which is mostly based on the udemy course
@@ -203,7 +208,7 @@ So the value function describes the expected sum of future rewards given that we
 
 In order to calculate the value function, we only need to look one step
 ahead which is important! Decreases the statspace to search over drastically
-in each step (insteaf of an entire tree of states). BS furthermore use the
+in each step (instead of an entire tree of states). BS furthermore use the
 law of total expectation to write the Bellman equation as. Remember that
 $\pi(a|s) = p(a|s)$ and use total law of expectation to put in $A_t$ in
 order to exploit the definitions above.
@@ -294,6 +299,8 @@ For all RL algos we learn, we'll follow the following pattern:
  - (Task 2) *Control problem* (Q) - Find the best policy
 
 * Dynamic Programming (DP)
+
+DP refers to the methods used for solving RLs when we have complete knowledge.
 
 ** Recap
 
@@ -399,7 +406,7 @@ The policy iteration algorithm is composed of the policy evaluation together wit
 [[file:img/5-policy-iteration-illustration.png]]
 
 
-The policy iteration pseudo algorithm from Barto and Sutton is given as below. HOWEVER, note the lack of the sum over policies in step 2. which is an error! Note also, that the value function can be initialized with zeroes (or random except for the terminal states which has to be zero).
+The policy iteration pseudo algorithm from Barto and Sutton is given as below. Note that the value function can be initialized with zeroes (or random except for the terminal states which has to be zero).
 #+ATTR_HTML: :width 800 :style border:2px solid black;
 #+ATTR_ORG: :width 800
 [[file:img/5-policy-iteration-pseudo-alg.png]]
@@ -430,4 +437,86 @@ Since the optimal policy can be derived from the Bellman optimality equation
 
 * Monte Carlo (model-free approach)
 
-In this section, the transition probabilities are unknown, at the agent must learn to navigate the environment to learn these.
+** Monte Carlo First Visit (Evaluation)
+
+Note here e.g. for model-based approaches, one can design a policy. For example, one can design/learn a policy that takes actions when trading. So the actions could be "buy", "sell" and "flat". Given a certain state, we can estimate this policy.
+
+In this section, the transition probabilities are unknown, and the agent must learn to navigate the environment to learn these. MC methods can only be used in problems with terminal nodes, i.e. problems that terminate, since we need to compute the expected future reward.
+
+In first visit monte carlo, the idea is to play a bunch of episodes and collect samples of returns, $G$, and then average these. More specifically, we estimate the value function by sample means.
+
+#+ATTR_HTML: :width 800 :style border:2px solid black;
+#+ATTR_ORG: :width 800
+[[file:img/6-first-visit-mc--pseudo-alg.png]]
+
+The algorithm can move into an infinite cycle, and we can just terminate the algo. after a predefined number of steps.
+
+** Monte Carlo Exploring Starts (Control)
+
+The MCES, is used for the control problem and leverages the ideas from FVMC. The idea is to, on an episodic basis, approximate both $Q$ and $\pi$. Notice how we cant compute $\pi$ as per the definition, since we do not know the transition probabilities. However, we do know that $\pi$ is the arg-max of the state value function $Q$. And we find $Q$ by an ordinary average over states and actions.
+
+#+ATTR_HTML: :width 800 :style border:2px solid black;
+#+ATTR_ORG: :width 800
+[[file:img/6-mces--pseudo-alg.png]]
+
+Notice how it is in-efficient to calculate the mean (for $Q$) when the number of samples is large. It can be updated as 
+$$
+Q(s,a) = Q(s, a) + \frac{1}{N(s,a)}\bigg[G - Q(s,a)\bigg]
+$$.
+
+One crucial assumption in the MCES algorithm is the "exploring starts" which is not always realistic. Imagine a self-driving car or a video game. You cant start in any state in the video game (otherwise just choose the best one :). The reason for randomly selecting a state and action in MCES, is to be sure that we eventually visit all state-action pairs so get more diverse episodes. Ultimately, we want all actions to be chosen infinitelty often, because then the convergence results (optimality) holds true.
+
+** Epsilon-Greedy Monte Carlo (Control)
+
+In EGMC we use a soft policy, which means that $\pi(a|s) > 0$ for all $s$ and $a$, but gradually shifted towards a deterministic policy. Specifically, the EPGM uses the $\epsilon$-greedy policy where 
+
+#+ATTR_HTML: :width 800 :style border:2px solid black;
+#+ATTR_ORG: :width 800
+[[file:img/6-egmc-pseudo-alg.png]]
+
+* On-Policy vs Off-Policy
+
+1. **Definition**:
+   - **On-Policy**: On-policy methods learn the value or policy function from the data generated by the current policy itself. In other words, they use the data collected by the agent while it follows its current policy to update that same policy.
+   - **Off-Policy**: Off-policy methods, on the other hand, learn the value or policy function from data collected by following a different, potentially older, or even random policy. They can update a policy while using data collected by a different policy.
+
+2. **Data Utilization**:
+   - **On-Policy**: On-policy methods can only use the data they collect while they are following the current policy. This means they can't make use of past experiences collected under a different policy.
+   - **Off-Policy**: Off-policy methods can use data collected by any policy, making them more data-efficient. This is particularly advantageous in situations where exploration of the environment is costly or risky.
+
+3. **Sample Efficiency**:
+   - **On-Policy**: On-policy methods are often less sample-efficient compared to off-policy methods because they cannot reuse past data effectively. They need to continually gather new data to update the current policy.
+   - **Off-Policy**: Off-policy methods tend to be more sample-efficient since they can reuse previously collected data. This can lead to faster learning in situations where collecting data is resource-intensive or time-consuming.
+
+4. **Exploration vs. Exploitation**:
+   - **On-Policy**: On-policy methods may have a slight advantage in exploration because they focus on improving the current policy. However, they can get stuck in local optima if exploration is not balanced.
+   - **Off-Policy**: Off-policy methods often handle exploration and exploitation more flexibly. They can explore using a stochastic policy while still learning from data collected under a deterministic or less exploratory policy.
+
+5. **Examples**:
+   - **On-Policy**: Methods like REINFORCE and A3C (Asynchronous Advantage Actor-Critic) are on-policy algorithms.
+   - **Off-Policy**: Q-learning, DDPG (Deep Deterministic Policy Gradients), and TD3 (Twin Delayed Deep Deterministic Policy Gradients) are examples of off-policy algorithms.
+
+In summary, the choice between on-policy and off-policy methods depends on the specific requirements and constraints of the RL problem you are trying to solve. On-policy methods can be simpler to implement and might be preferred when exploration is a key concern, while off-policy methods are often more sample-efficient and can leverage historical data effectively, making them suitable for a wider range of scenarios.
+
+
+* RL and Data
+
+In reinforcement learning (RL), you can use information from a dataset with variables X and Y (forming the states) in several ways, depending on your specific problem and the RL algorithm you're using. Here are some common approaches:
+
+1. **State Representation:** The dataset can serve as a source for defining the state representation for your RL problem. You can use the variables X and Y directly as state features or preprocess them to create a more informative state representation. This representation should capture all relevant information about the environment that the RL agent needs to make decisions.
+
+2. **Initialization:** You can use the dataset to initialize the RL agent's policy or value function. For example, you can train a supervised learning model (e.g., a neural network) using the dataset to predict actions or state values. Then, you can use this pre-trained model as the starting point for your RL algorithm.
+
+3. **Reward Design:** The dataset can help you design a suitable reward function for your RL problem. By analyzing the data, you can identify patterns or conditions that indicate whether an action is good or bad. This information can guide the creation of a reward function that provides meaningful feedback to the RL agent.
+
+4. **Behavior Cloning:** If you have access to a dataset of expert demonstrations (X, Y, actions), you can use behavior cloning to train an RL policy. You train a model (e.g., a neural network) to predict actions from states (X and Y) based on the expert data. The RL agent can then fine-tune this policy using reinforcement learning techniques.
+
+5. **Imitation Learning:** Similar to behavior cloning, you can use the dataset for imitation learning, where the RL agent learns from expert demonstrations. Imitation learning methods aim to generalize from the dataset to handle situations not explicitly seen in the data.
+
+6. **Experience Replay:** If your RL algorithm supports experience replay (e.g., Deep Q-Networks), you can store the dataset in a replay buffer and sample experiences from it during training. This helps stabilize training by breaking the temporal correlation between consecutive experiences and can make learning more data-efficient.
+
+7. **Reward Shaping:** You can analyze the dataset to identify subgoals or intermediate rewards that can be used for reward shaping. Reward shaping can help guide the RL agent toward desired behaviors and accelerate learning.
+
+8. **Policy Evaluation:** If you have a dataset of state-action pairs and their associated rewards (X, Y, actions, rewards), you can use it for policy evaluation. This involves estimating the expected return of a policy based on the dataset, which can be useful for comparing different policies or assessing the quality of a learned policy.
+
+The specific approach you choose will depend on the nature of your RL problem and the available dataset. Keep in mind that using a dataset effectively in RL often requires careful preprocessing, data analysis, and consideration of potential challenges such as distribution shift between the dataset and the RL environment. Additionally, it's essential to choose an RL algorithm that supports your chosen approach (e.g., behavior cloning, imitation learning, experience replay) and implement it accordingly.
