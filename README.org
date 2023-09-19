@@ -468,11 +468,24 @@ One crucial assumption in the MCES algorithm is the "exploring starts" which is 
 
 ** Epsilon-Greedy Monte Carlo (Control)
 
-In EGMC we use a soft policy, which means that $\pi(a|s) > 0$ for all $s$ and $a$, but gradually shifted towards a deterministic policy. Specifically, the EPGM uses the $\epsilon$-greedy policy where 
+In EGMC we use a soft policy, which means that $\pi(a|s) > 0$ for all $s$ and $a$, but gradually shifted towards a deterministic policy. Specifically, the EPGM uses the $\epsilon$-greedy policy where...
+
+In this algo we typically choose the initial state (and reset it) in each repeat and follow the epsilon policy hereafter.
 
 #+ATTR_HTML: :width 800 :style border:2px solid black;
 #+ATTR_ORG: :width 800
 [[file:img/6-egmc-pseudo-alg.png]]
+
+
+* Temporal Difference Learning
+
+TDL can handle environments that don't have any terminal states.
+
+** SARSA - Control
+
+** Q-Laerning - Control
+
+
 
 * On-Policy vs Off-Policy
 
@@ -497,7 +510,6 @@ In EGMC we use a soft policy, which means that $\pi(a|s) > 0$ for all $s$ and $a
    - **Off-Policy**: Q-learning, DDPG (Deep Deterministic Policy Gradients), and TD3 (Twin Delayed Deep Deterministic Policy Gradients) are examples of off-policy algorithms.
 
 In summary, the choice between on-policy and off-policy methods depends on the specific requirements and constraints of the RL problem you are trying to solve. On-policy methods can be simpler to implement and might be preferred when exploration is a key concern, while off-policy methods are often more sample-efficient and can leverage historical data effectively, making them suitable for a wider range of scenarios.
-
 
 * RL and Data
 
